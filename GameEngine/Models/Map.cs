@@ -12,33 +12,38 @@ public class Map
 {
     public Map()
     {
-        Coordinates = new Dictionary<int[,], AllocationType>();
+        Coordinates = new Dictionary<(int, int), AllocationType>();
     }
 
-    public Dictionary<int[,], AllocationType> Coordinates { get; set; }
-
-    public void PrintCoordinates()
-    {
-        Console.WriteLine("Map generating...");
-        foreach (var coordinate in Coordinates)
-        {
-            int x = coordinate.Key[0, 0];
-            int y = coordinate.Key[0, 1];
-
-            Console.WriteLine($"Point: ({x}, {y})");
-        }
-    }
-
+    public Dictionary<(int, int), AllocationType> Coordinates { get; set; }
+    
     public void DrawMap()
     {
-        Console.WriteLine(Coordinates);
-        Console.WriteLine(Coordinates.Keys);
-        
-        foreach(var positionAllocation in Coordinates.Values)
+        int rowCount = 10;
+        int columnCount = 10;
+        int index = 0;
+
+        // Print column headers (1-10)
+        Console.Write("  ");
+        for (int j = 0; j <= columnCount; j++)
         {
-            Console.WriteLine(positionAllocation);
+            Console.Write(j);
         }
-        
+        Console.WriteLine();
+
+        // Print rows with headers (A-J) and grid elements
+        for (int i = 0; i < rowCount; i++)
+        {
+            Console.Write((char)('A' + i)); // Print row header (A-J)
+
+            for (int j = 0; j < columnCount; j++)
+            {
+                AllocationType positionAllocation = Coordinates.Values.ElementAt(index);
+                Console.Write((char)positionAllocation);
+                index++;
+            }
+            Console.WriteLine();
+        }
     }
 }
     

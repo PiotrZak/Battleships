@@ -6,6 +6,4 @@ public class Player
     public int Ranking { get; set; }
     public int Win { get; set; }
     public bool IsAI { get; set; }
-    
-    
 }

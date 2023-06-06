@@ -2,58 +2,23 @@ namespace GameEngine.Models;
 
 public enum ShipClass
 {
-    Destroyer,
-    Submarine,
-    Cruiser,
-    Battleship,
-    Carrier,
+    Destroyer = 2,
+    Submarine = 3,
+    Cruiser = 3,
+    Battleship = 4,
+    Carrier = 5,
 }
 
 public class Ship
 {
+    public Ship(List<(int, int)> position, string length)
+    {
+        Position = position;
+        Length = Length;
+    }
+
     public ShipClass ShipClass { get; set; }
     public int Length { get; set; }
     public bool IsSunk { get; set; }
-    
-    public List<int[,]> Position { get; set; }
-}
-
-public class Destroyer : Ship
-{
-    public Destroyer()
-    {
-        Length = 2;
-    }
-}
-
-public class Submarine : Ship
-{
-    public Submarine()
-    {
-        Length = 3;
-    }
-}
-
-public class Cruiser : Ship
-{
-    public Cruiser()
-    {
-        Length = 3;
-    }
-}
-
-public class Battleship : Ship
-{
-    public Battleship()
-    {
-        Length = 4;
-    }
-}
-
-public class Carrier : Ship
-{
-    public Carrier()
-    {
-        Length = 5;
-    }
+    public List<(int, int)> Position { get; set; }
 }

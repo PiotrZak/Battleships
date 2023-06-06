@@ -20,7 +20,7 @@ public class PlayerFleet
         Ships.Add(ship);
     }
 
-    public void SunkShipByLastHittedPosition(int[,] position)
+    public void SunkShipByLastHittedPosition((int, int) position)
     {
         var ship = Ships.Find(x => x.Position.Contains(position));
         if (ship != null) ship.IsSunk = true;
