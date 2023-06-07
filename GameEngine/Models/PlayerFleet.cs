@@ -2,8 +2,8 @@ namespace GameEngine.Models;
 
 public class PlayerFleet
 {
-    public Player Player;
-    public List<Ship> Ships;
+    public Player Player { get; set; }
+    private List<Ship> Ships { get; set; } = new();
 
     public void AddShip(ShipClass shipClass, Ship ship)
     {
@@ -20,12 +20,11 @@ public class PlayerFleet
         Ships.Add(ship);
     }
 
-    public void SunkShipByLastHittedPosition((int, int) position)
+    public void AssignPlayer(Player player)
     {
-        var ship = Ships.Find(x => x.Position.Contains(position));
-        if (ship != null) ship.IsSunk = true;
+        Player = player;
     }
-
+    
     public bool IsFleetSunk()
     {
         return Ships.All(x => x.IsSunk);

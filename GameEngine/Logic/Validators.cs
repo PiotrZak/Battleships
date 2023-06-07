@@ -27,4 +27,9 @@ public class Validators
 
         return true;
     }
+    
+    public static bool IsInBoard(int x, int y)
+    {
+        return x is >= 0 and <= 10 && y is >= 0 and <= 10;
+    }
 }
