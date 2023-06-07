@@ -43,7 +43,8 @@ namespace GameEngine.UI
             
             Console.WriteLine(map.Coordinates);
             
-            map.DrawMap();
+            map.DrawMap(true);
+            map.DrawMap(false);
             // Shot(p1, map);
             // map.DrawMap();
         }

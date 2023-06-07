@@ -31,7 +31,7 @@ public class Map
         return Coordinates.Count(x => x.Value == AllocationType.EnemyShip);
     }
     
-    public void DrawMap()
+    public void DrawMap(bool isMasked)
     {
         int rowCount = 10;
         int columnCount = 10;
@@ -53,7 +53,21 @@ public class Map
             for (int j = 0; j < columnCount; j++)
             {
                 AllocationType positionAllocation = Coordinates.Values.ElementAt(index);
-                Console.Write((char)positionAllocation);
+                if (isMasked)
+                {
+                    if (positionAllocation == AllocationType.EnemyShip)
+                    {
+                        Console.Write((char)AllocationType.Water);
+                    }
+                    else
+                    {
+                        Console.Write((char)positionAllocation);
+                    }
+                }
+                else
+                {
+                    Console.Write((char)positionAllocation);
+                }
                 index++;
             }
             Console.WriteLine();
@@ -62,5 +76,6 @@ public class Map
         Console.WriteLine("Number of ally fields" + GetNumberOfAllyLifes());
         Console.WriteLine("Number of enemy fields:" + GetNumberOfEnemyLifes());
     }
+
 }
     
