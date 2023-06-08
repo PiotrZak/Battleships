@@ -9,10 +9,11 @@ public abstract class PopulateShips
         Random random = new Random();
         var fleet = new PlayerFleet();
     
-        foreach (ShipClass shipClass in Enum.GetValues(typeof(ShipClass)))
+        foreach (string shipClassName in Enum.GetNames(typeof(ShipClass)))
         {
-            Console.WriteLine("Placing " + shipClass);
+            Console.WriteLine("Placing " + shipClassName);
             
+            var shipClass = (ShipClass)Enum.Parse(typeof(ShipClass), shipClassName);
             int length = (int)shipClass;
             bool isHorizontal = random.Next(2) == 0; // Randomly determine the ship's orientation
         
@@ -34,8 +35,8 @@ public abstract class PopulateShips
                         shipPosition[coordinate] = true;
                     }
 
-                    var newShip = new Ship(shipPosition, length);
-                    fleet.AddShip(shipClass, newShip);
+                    var newShip = new Ship(shipPosition, length, shipClassName);
+                    fleet.AddShip(shipClassName, newShip);
                     PlaceShipOnMap(map, (startX, startY), length, isHorizontal, allocateType);
                 }
                 else

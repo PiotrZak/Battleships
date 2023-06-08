@@ -11,13 +11,14 @@ public enum ShipClass
 
 public class Ship
 {
-    public Ship(Dictionary<(int, int), bool> position, int length)
+    public Ship(Dictionary<(int, int), bool> position, int length, string shipClass)
     {
         Position = position;
         Length = length;
+        ShipClass = shipClass;
     }
 
-    public ShipClass ShipClass { get; set; }
+    public string ShipClass { get; set; }
     public int Length { get; set; }
     public bool IsSunk
     {

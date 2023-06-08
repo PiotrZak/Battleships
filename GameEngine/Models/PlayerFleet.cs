@@ -3,9 +3,9 @@ namespace GameEngine.Models;
 public class PlayerFleet
 {
     public Player Player { get; set; }
-    private List<Ship> Ships { get; set; } = new();
+    public List<Ship> Ships { get; set; } = new();
 
-    public void AddShip(ShipClass shipClass, Ship ship)
+    public void AddShip(string shipClass, Ship ship)
     {
         if (Ships.Count >= 5)
         {
@@ -18,6 +18,11 @@ public class PlayerFleet
         }
 
         Ships.Add(ship);
+    }
+
+    public int ShipsLeft()
+    {
+        return Ships.Count(x => !x.IsSunk);
     }
 
     public void AssignPlayer(Player player)
