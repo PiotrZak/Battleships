@@ -1,16 +1,7 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=5d9dcf06_002D5303_002D4ee3_002D821c_002D4d9415f58fc8/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from UserInputTests.cs" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;Or&gt;
-    &lt;ProjectFile&gt;EB8C37A8-8F73-4216-8D9B-72CAE178282C/d:GameEngine/f:UserInputTests.cs&lt;/ProjectFile&gt;
-    &lt;TestAncestor&gt;
-      &lt;TestId&gt;NUnit3x::EB8C37A8-8F73-4216-8D9B-72CAE178282C::net7.0::Tests.GameEngine.ShipPositionInBoard+PositionTests.IsValidPosition_WhenCalled_ReturnsCorrectValidity&lt;/TestId&gt;
-    &lt;/TestAncestor&gt;
-  &lt;/Or&gt;
+  &lt;ProjectFolder&gt;EB8C37A8-8F73-4216-8D9B-72CAE178282C/d:GameEngine&lt;/ProjectFolder&gt;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=9521e1e2_002Dd123_002D4f94_002D8880_002D87df5fc3309e/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="ParseUserInput_ValidInput_ReturnsCorrectCoordinates" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;NUnit3x::EB8C37A8-8F73-4216-8D9B-72CAE178282C::net7.0::Tests.GameEngine.ShipPositionInBoard.IsValidPosition_WhenCalled_ReturnsCorrectValidity&lt;/TestId&gt;
-    &lt;TestId&gt;NUnit3x::EB8C37A8-8F73-4216-8D9B-72CAE178282C::net7.0::Tests.GameEngine.PlaceShipOnMap.PlaceShipOnMap_ValidPlacement_SetsCoordinatesToAllocateType&lt;/TestId&gt;
-    &lt;TestId&gt;NUnit3x::EB8C37A8-8F73-4216-8D9B-72CAE178282C::net7.0::Tests.GameEngine.PopulateShipLogic&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
+  &lt;Project Location="/Users/piotrzak/Documents/GitHub/Battleships/Tests" Presentation="&amp;lt;Tests&amp;gt;" /&gt;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

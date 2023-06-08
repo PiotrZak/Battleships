@@ -4,79 +4,105 @@ namespace GameEngine.Logic;
 
 public abstract class ShotLogic
 {
-    public static string Shot(PlayerFleet playerFleet, Map map)
+    public static void Shot(PlayerFleet playerFleet, Map map, GameMode mode, int round)
     {
-            
-        Console.WriteLine("Where to shot? (eg A5)");
-        var userShotCoordinates = Console.ReadLine();
-
-        if(Validators.IsInputCorrect(userShotCoordinates))
+        while (true)
         {
-            var (x, y) = Parsers.ParseUserInput(userShotCoordinates);
+            Console.WriteLine("Where to shot? (eg A5)");
             
-            if (map.Coordinates.TryGetValue((x, y), out var allocationType))
+            var userShotCoordinates = mode switch
             {
-                var hitted = IsHitted(map, (x, y));
-                if (hitted)
-                {
-                    var ship = playerFleet.Ships.SingleOrDefault(ship => ship.Position.ContainsKey((x,y)));
-                    
-                    if (ship == null)
-                    {
-                        throw new Exception("implementation goes wrong :(");
-                    }
-                    ship.Position[(x, y)] = false;
-                    if (ship.IsSunk)
-                    {
-                        Console.WriteLine("Grats! enemy ship " + ship.ShipClass + " sunked!");
-                        Console.WriteLine("Left Enemy ships " + playerFleet.ShipsLeft());
-                    }
-                    else
-                    {
+                GameMode.AvA => AIChoose(),
+                GameMode.PvA => round % 2 != 0 ? Console.ReadLine() : AIChoose(),
+                GameMode.PvP => Console.ReadLine(),
+                _ => throw new ArgumentOutOfRangeException(nameof(mode), mode, null)
+            };
 
-                        Console.WriteLine("Enemy Ship " + ship.ShipClass + " lIeft ship fields: " + ship.Position.Count(isHitted => isHitted.Value));
+            if (Validators.IsInputCorrect(userShotCoordinates))
+            {
+                var (x, y) = Parsers.ParseUserInput(userShotCoordinates);
+
+                if (map.Coordinates.TryGetValue((x, y), out var allocationType))
+                {
+                    switch (allocationType)
+                    {
+                        case AllocationType.AllyShip:
+                            Console.WriteLine("Cannot attack allies!");
+                            continue;
+                        case AllocationType.ShotMissed:
+                            Console.WriteLine("Hey its already missed, don't waste energy and resources!");
+                            continue;
+                        case AllocationType.AllyShipHitted:
+                            Console.WriteLine("Its your ship already attacked!");
+                            continue;
+                        case AllocationType.EnemyHitted:
+                            Console.WriteLine("Its enemy ship already attacked");
+                            continue;
+                        case AllocationType.Water:
+                        case AllocationType.EnemyShip:
+                        default:
+                            HandleHit(playerFleet, map, x, y);
+                            break;
                     }
                 }
-                
-                if (allocationType == AllocationType.AllyShip)
+                else
                 {
-                    Console.WriteLine("Cannot attack allies!");
-                    Shot(playerFleet, map);
+                    Console.WriteLine("Key not found - Out Of board");
                 }
             }
             else
             {
-                Console.WriteLine("Key not found - Out Of board");
+                continue;
             }
-        }
-        else
-        {
-            Shot(playerFleet, map);
-        }
 
-        return "OK";
+            break;
+        }
     }
 
-    private static bool IsHitted(Map map, (int, int) coordinates)
+    public static string? AIChoose()
+    {
+        Random random = new Random();
+        int columnIndex = random.Next(10);
+        char column = (char)('A' + columnIndex);
+        int row = random.Next(1, 11);
+        return $"{column}{row}";
+    }
+
+    public static void HandleHit(PlayerFleet playerFleet, Map map, int x, int y)
+    {
+        var hitted = IsHitted(map, (x, y));
+        if (hitted)
+        {
+            var ship = playerFleet.Ships.SingleOrDefault(ship => ship.Position.ContainsKey((x, y)));
+
+            if (ship == null)
+            {
+                throw new Exception("Opposite fleet passes - there isn't ship of this fleet on this coordinate");
+            }
+
+            ship.Position[(x, y)] = false;
+            if (ship.IsSunk)
+            {
+                Console.WriteLine("Congrats! enemy ship " + ship.ShipClass + " sunked!");
+                Console.WriteLine("Left Enemy ships " + playerFleet.ShipsLeft());
+            }
+            else
+            {
+                Console.WriteLine("Enemy Ship " + ship.ShipClass + " hitted - left ship fields: " + ship.Position.Count(isHitted => isHitted.Value));
+            }
+        }
+    }
+    
+    public static bool IsHitted(Map map, (int, int) coordinates)
     {
         if (map.Coordinates[coordinates] == AllocationType.EnemyShip)
         {
             map.Coordinates[coordinates] = AllocationType.EnemyHitted;
             return true;
         }
+        Console.WriteLine("Miss");
+        map.Coordinates[coordinates] = AllocationType.ShotMissed;
 
-        if (map.Coordinates[coordinates] != AllocationType.EnemyHitted || map.Coordinates[coordinates] != AllocationType.AllyShipHitted )
-        {
-            map.Coordinates[coordinates] = AllocationType.ShotMissed;
-            Console.WriteLine("Miss");
-        }
-        
-    return false;
-}
-
-    private static void ReportShipDamage(Ship ship)
-    {
-        
+        return false;
     }
-    
 }

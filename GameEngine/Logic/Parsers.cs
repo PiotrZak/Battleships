@@ -2,7 +2,7 @@ namespace GameEngine.Logic;
 
 public class Parsers
 {
-    public static (int, int) ParseUserInput(string userShotCoordinates)
+    public static (int, int) ParseUserInput(string? userShotCoordinates)
     {
         string[] parts = userShotCoordinates.Split(',');
         string coordinate = parts[0].Trim();

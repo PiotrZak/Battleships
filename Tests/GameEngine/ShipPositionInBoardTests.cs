@@ -3,7 +3,7 @@ using GameEngine.Logic;
 namespace Tests.GameEngine;
 
 [TestFixture]
-public class ShipPositionInBoard
+public class ShipPositionInBoardTests
 {
     [TestCase(0, 0, true)]
     [TestCase(5, 5, true)]

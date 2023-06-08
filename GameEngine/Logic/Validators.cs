@@ -2,7 +2,7 @@ namespace GameEngine.Logic;
 
 public class Validators
 {
-    public static bool IsInputCorrect(string userShotCoordinates)
+    public static bool IsInputCorrect(string? userShotCoordinates)
     {
         if (userShotCoordinates.Length > 3)
         {

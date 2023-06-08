@@ -9,7 +9,7 @@ public class UserInputTests
     [TestCase("A10", 1,10)]
     [TestCase("H5", 8,5)]
     [TestCase("D3", 4,3)]
-    public void ParseUserInput_ValidInputs_ReturnsExpectedCoordinates(string input, int expectedX, int expectedY)
+    public void ParseUserInput_ValidInputs_ReturnsExpectedCoordinates(string? input, int expectedX, int expectedY)
     {
         // Test implementation
         (int actualX, int actualY) = Parsers.ParseUserInput(input);

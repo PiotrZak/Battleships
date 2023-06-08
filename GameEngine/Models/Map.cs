@@ -63,15 +63,15 @@ public class Map
         Console.WriteLine();
 
         // Print rows with headers (A-J) and grid elements
-        for (int i = 0; i < rowCount; i++)
+        for (var i = 0; i < rowCount; i++)
         {
             Console.Write("[");
             Console.Write((char)('A' + i)); // Print row header (A-J)
             Console.Write("]");
             
-            for (int j = 0; j < columnCount; j++)
+            for (var j = 0; j < columnCount; j++)
             {
-                AllocationType positionAllocation = Coordinates.Values.ElementAt(index);
+                var positionAllocation = Coordinates.Values.ElementAt(index);
                 if (isMasked)
                 {
                     if (positionAllocation == AllocationType.EnemyShip)

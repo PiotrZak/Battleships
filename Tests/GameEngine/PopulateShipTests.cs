@@ -3,7 +3,7 @@ using GameEngine.Models;
 
 namespace Tests.GameEngine;
 
-public class PopulateShipLogic
+public class PopulateShipTests
 {
     [Test]
     public void PlaceShipOnMap_ValidPlacement_SetsCoordinatesToAllocateType()
