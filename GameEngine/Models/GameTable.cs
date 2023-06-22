@@ -12,14 +12,21 @@ public enum GameMode
 public class GameTable
 {
     private readonly Map map;
+    private readonly Map opponentBoard;
+    private readonly Map playerBoard;
     private readonly List<PlayerFleet> fleets;
+    private readonly PlayerFleet p1Fleet;
+    private readonly PlayerFleet p2Fleet;
 
     public GameTable()
     {
         map = Map.GenerateMap();
+        opponentBoard = Map.GenerateMap();
+        playerBoard = Map.GenerateMap();
         var p1 = new Player( "P1", false);
         var p2 = new Player("P2", false);
-        fleets = BuildPlayersFleets(map, p1, p2);
+        p1Fleet = PopulateFleet.BuildPlayerFleet(playerBoard, p1);
+        p2Fleet = PopulateFleet.BuildPlayerFleet(opponentBoard, p2);
     }
 
     public void Start()
@@ -53,10 +60,10 @@ public class GameTable
         }
     }
 
-    private static List<PlayerFleet> BuildPlayersFleets(Map map, Player p1, Player p2)
+    private static List<PlayerFleet> BuildPlayersFleets(Map opponentBoard, Map playerBoard, Player p1, Player p2)
     {
-        var p1Fleet = PopulateFleet.BuildPlayerFleet(map, p1);
-        var p2Fleet = PopulateFleet.BuildPlayerFleet(map, p2);
+        var p1Fleet = PopulateFleet.BuildPlayerFleet(playerBoard, p1);
+        var p2Fleet = PopulateFleet.BuildPlayerFleet(opponentBoard, p2);
             
         return new List<PlayerFleet> { p1Fleet, p2Fleet };
     }
@@ -66,24 +73,33 @@ public class GameTable
         var currentPlayerIndex = 0;
         var round = 0;
         
-        while (!fleets.Any(x => x.IsFleetSunk()))
+        while (!p1Fleet.IsFleetSunk() || !p2Fleet.IsFleetSunk())
         {
-            var currentPlayerFleet = fleets[currentPlayerIndex];
-            var oppositePlayerFleet = fleets.Find(x => x.Player.Name != currentPlayerFleet.Player.Name);
-                
-            map.DrawMap(false);
-            Console.WriteLine("Player " + currentPlayerFleet.Player.Name + " turn.");
-            ShotLogic.Shot(oppositePlayerFleet, map, mode, round);
+            if ((round & 1) != 1)
+            {
+                playerBoard.DrawMap(false);
+                ShotLogic.Shot(p1Fleet, playerBoard, mode, round);
+                Console.WriteLine("Player 1 turn.");
+            }
+            else
+            {
+                opponentBoard.DrawMap(false);
+                ShotLogic.Shot(p2Fleet, opponentBoard, mode, round);
+                Console.WriteLine("Player 2 turn.");
+            }
             
-            ReverseEnemyContext(map);
-            currentPlayerIndex = (currentPlayerIndex + 1) % fleets.Count; // Switch to the next player
+
+
+            
+            // this code used when only 1 board
+            //ReverseEnemyContext(map);
+            //currentPlayerIndex = (currentPlayerIndex + 1) % fleets.Count; // Switch to the next player
+            
             round ++;
         }
 
         Console.WriteLine("Game Over, Rounds: " + round);
         Console.WriteLine("---------");
-        Console.WriteLine(fleets.Find(x => x.IsFleetSunk())?.Player.Name);
-        Console.WriteLine("Lost");
     }
     
     //if p1 then p2 is enemy, and if p2 then p1 is enemy

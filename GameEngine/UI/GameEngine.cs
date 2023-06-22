@@ -7,6 +7,7 @@ namespace GameEngine.UI
         public void StartGame()
         {
             var gameTable = new GameTable();
+            
             gameTable.Start();
         }
     }
