@@ -40,7 +40,7 @@ public class ShotLogicTests
         {
             // Assert
             Assert.That(result, Is.False);
-            Assert.That(map.Coordinates[coordinates], Is.EqualTo(AllocationType.AllyShip));
+            Assert.That(map.Coordinates[coordinates], Is.EqualTo(AllocationType.ShotMissed));
         });
     }
 
@@ -57,7 +57,7 @@ public class ShotLogicTests
         Assert.Multiple(() =>
         {
             Assert.That(result, Is.False);
-            Assert.That(map.Coordinates[coordinates], Is.EqualTo(AllocationType.Water));
+            Assert.That(map.Coordinates[coordinates], Is.EqualTo(AllocationType.ShotMissed));
         });
     }
 }
